@@ -1,14 +1,14 @@
 dataset:
   name: TropicalLeafWood
-  dataset_path: /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/leaf_wood/preprocessed_open3d
+  dataset_path: /project/data
   train_dir: train
   val_dir: val
   test_dir: test
-  cache_dir: ./logs/cache_small3d/
+  cache_dir: /project/logs/cache
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 65536
-  test_result_folder: ./test
+  # test_result_folder: ./test
   use_cache: true
   # val_files:
   # - bildstein_station1_xyz_intensity_rgb
@@ -52,13 +52,13 @@ pipeline:
   optimizer:
     lr: 0.001
   batch_size: 1
-  main_log_dir: ./logs
+  main_log_dir: /project/logs
   max_epoch: 300
   save_ckpt_freq: 5
   scheduler_gamma: 0.9886
   test_batch_size: 1
   split: train
-  train_sum_dir: train_log
+  train_sum_dir: /project/train_log
   val_batch_size: 2
   summary:
     record_for: []
