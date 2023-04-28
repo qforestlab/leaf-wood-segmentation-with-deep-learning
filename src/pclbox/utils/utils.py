@@ -44,12 +44,13 @@ def read_clouds(files_in, n=None, random=False, down_sample_size=None, color=Fal
     Returns:
         (list(open3d.geometry.PointCloud)): list of point clouds
     """
+    # allowed file formats
+    FORMATS = ['ply']
 
     if isinstance(files_in, str):
         # Assume string to be directory path
         if os.path.isdir(files_in):
             # Collect all files in directory of allowed FORMAT in list
-            FORMATS = ['ply']
             files_in = [files_in + f for f in os.listdir(files_in) if f[-3:] in FORMATS]
         else:
             raise ValueError('Provided directory path does not exist.')
@@ -59,9 +60,6 @@ def read_clouds(files_in, n=None, random=False, down_sample_size=None, color=Fal
             raise ValueError('Provided paths are not all valid.')
     else:
         raise ValueError('Files_in must be a directory or a list containing filenames.')
-
-    # allowed file formats
-    FORMATS = ['ply']
     
     # Get n files
     if n is not None:
