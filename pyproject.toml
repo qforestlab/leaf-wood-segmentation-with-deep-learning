@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pclbox"
+version = "0.0.1"
+authors = [
+  { name="Wouter Van den Broeck", email="wouter.vandenbroeck@ugent.be" },
+]
+description = "Point cloud toolbox containing functionality for processing forest point clouds"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "open3d>=0.17.0",
+  "torch>=1.13.1",
+]
+keywords = [
+  "point clouds",
+  "deep learning",
+]
+
+# [project.optional-dependencies]
+# option1 = [
+#   "tensorboard",
+# ]
+
+[project.urls]
+"Homepage" = "https://github.com/cavelab-ugent/pcl-segmentation"
+# "Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+# Documentation = ""
+
+[tool.hatch.build]
+# include = [
+#   "/src",
+# ]
+
+# [tool.hatch.build]
+# exclude = [
+#   "/tests",
+# ]
