@@ -11,11 +11,14 @@
 #
 # ----------------------------------------------------
 
+import time
 import numpy as np
 import torch
 import torch.nn as nn
-import open3d.ml as _ml3d
-import open3d.ml.torch as ml3d
+# import open3d.ml as _ml3d
+# import open3d.ml.torch as ml3d
+import ml3d as _ml3d
+import ml3d.torch as ml3d
 from open3d.ml.torch.datasets import Custom3D
 from open3d.ml.torch.modules import losses
 
@@ -31,7 +34,8 @@ def get_arguments():
 class CustomRandLANet(ml3d.models.RandLANet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        num_per_class = cfg.dataset.get('class_weights', None)
+
+        num_per_class = self.cfg.get('class_weights', None)
         self.class_weights = self.get_class_weights(num_per_class) if num_per_class is not None else None
         self.cce_loss = nn.CrossEntropyLoss(weight=self.class_weights)
 
@@ -64,7 +68,11 @@ if __name__ == '__main__':
     # Instantiate dataset, model and pipeline
     dataset = Custom3D(**cfg.dataset)
     model = CustomRandLANet(**cfg.model) # ml3d.models.RandLANet(**cfg.model)
+    # model = ml3d.models.PointTransformer(**cfg.model)
     pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset, **cfg.pipeline)
 
     # Train model
+    start = time.time()
     pipeline.run_train()
+    end = time.time()
+    print("Training took:", end-start, "seconds") 
