@@ -25,6 +25,7 @@ model:
   num_layers: 5
   num_points: 65536 # A random sample of num_points will be taken from each point cloud as input for the model
   num_classes: 2
+  class_weights: [34512040, 9127323]
   ignored_label_inds: []
   sub_sampling_ratio: [4, 4, 4, 4, 2] # 
   in_channels: 3
