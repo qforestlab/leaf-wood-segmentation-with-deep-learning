@@ -34,12 +34,12 @@ model:
   grid_size: 0.02 # Point clouds will be preprocessed with this grid size
   augment:
     recenter:
-      dim: [0, 1]
-    normalize:
-      feat:
-        method: linear
-        bias: 0
-        scale: 255
+      dim: [0, 1, 2]
+    # normalize:
+    #   feat:
+    #     method: linear
+    #     bias: 0
+    #     scale: 255
     rotate:
       method: vertical
     scale:
@@ -52,7 +52,7 @@ pipeline:
   device: 'cuda:0'
   optimizer:
     lr: 0.001
-  batch_size: 1
+  batch_size: 3
   main_log_dir: /project/logs
   max_epoch: 300
   save_ckpt_freq: 5
@@ -60,7 +60,7 @@ pipeline:
   test_batch_size: 1
   split: train
   train_sum_dir: /project/train_log
-  val_batch_size: 2
+  val_batch_size: 3
   summary:
     record_for: []
     max_pts:
