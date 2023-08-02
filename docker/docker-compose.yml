@@ -12,7 +12,7 @@ services:
       - ../logs:/project/logs
       - ../scripts:/project/scripts
       - ../train_log:/project/train_log
-      - /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/leaf_wood/preprocessed_open3d:/project/data
+      - ../../data/leaf_wood:/project/data
     # env_file: ./.env
     stdin_open: true 
     tty: true
