@@ -4,7 +4,7 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
-  cache_dir: ./logs/cache
+  cache_dir: ./logs/cache_pointTransformer
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 40960
@@ -29,16 +29,16 @@ model:
       max_s: 1.05
     noise:
       noise_std: 0.005
-    ChromaticAutoContrast:
-      randomize_blend_factor: True
-      blend_factor: 0.2
-    ChromaticTranslation:
-      trans_range_ratio: 0.05
-    ChromaticJitter:
-      std: 0.01
-    HueSaturationTranslation:
-      hue_max: 0.5
-      saturation_max: 0.2
+    # ChromaticAutoContrast:
+    #   randomize_blend_factor: True
+    #   blend_factor: 0.2
+    # ChromaticTranslation:
+    #   trans_range_ratio: 0.05
+    # ChromaticJitter:
+    #   std: 0.01
+    # HueSaturationTranslation:
+    #   hue_max: 0.5
+    #   saturation_max: 0.2
 pipeline:
   name: SemanticSegmentation
   device: 'cpu'

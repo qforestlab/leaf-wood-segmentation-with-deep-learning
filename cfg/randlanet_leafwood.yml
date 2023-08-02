@@ -23,22 +23,23 @@ model:
   # is_resume: True
   num_neighbors: 16
   num_layers: 5
-  num_points: 65536 # A random sample of num_points will be taken from each point cloud as input for the model
+  num_points: 65536 # =2^16. A random sample of num_points will be taken from each point cloud as input for the model
   num_classes: 2
+  class_weights: [34512040, 9127323]
   ignored_label_inds: []
   sub_sampling_ratio: [4, 4, 4, 4, 2] # 
   in_channels: 3
   dim_features: 3
   dim_output: [16, 64, 128, 256, 512]
   grid_size: 0.02 # Point clouds will be preprocessed with this grid size
-  augment:
+  augment: # TODO: rebase z-values. Check influence of different augmentations.
     recenter:
-      dim: [0, 1]
-    normalize:
-      feat:
-        method: linear
-        bias: 0
-        scale: 255
+      dim: [0, 1, 2]
+    # normalize:
+    #   feat:
+    #     method: linear
+    #     bias: 0
+    #     scale: 255
     rotate:
       method: vertical
     scale:
@@ -53,7 +54,7 @@ pipeline:
     lr: 0.001
   batch_size: 1
   main_log_dir: ./logs
-  max_epoch: 300
+  max_epoch: 100
   save_ckpt_freq: 5
   scheduler_gamma: 0.9886
   test_batch_size: 1
