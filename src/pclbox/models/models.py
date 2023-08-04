@@ -49,7 +49,7 @@ class CustomPointTransformer(ml3d.models.PointTransformer):
         return torch.tensor(ce_label_weight)
     
     def get_loss(self, Loss, results, inputs, device):
-        labels = inputs['data']['labels']
+        labels = inputs['data'].label
         scores, labels = losses.filter_valid_label(
             results, 
             labels, 
