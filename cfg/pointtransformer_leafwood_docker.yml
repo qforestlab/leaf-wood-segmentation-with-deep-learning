@@ -1,6 +1,6 @@
 dataset:
   name: TropicalLeafWood
-  dataset_path: ../data/leaf_wood
+  dataset_path: /project/data
   train_dir: train
   val_dir: val
   test_dir: test
@@ -19,8 +19,8 @@ model:
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
   num_classes: 2
-  voxel_size: 0.02
-  max_voxels:  50000 # 65536
+  voxel_size: 0.02 # called grid_size in randlanet config
+  max_voxels: 50000 # called num_points in randlanet config
   ignored_label_inds: []
   augment:
     # recenter:
@@ -28,8 +28,8 @@ model:
     rotate:
       method: vertical
     scale:
-      min_s: 0.9 # 0.95
-      max_s: 1.1 # 1.05
+      min_s: 0.9
+      max_s: 1.1
     noise:
       noise_std: 0.001
     # ChromaticAutoContrast:
@@ -51,12 +51,12 @@ pipeline:
     # weight_decay: 0.0001
   batch_size: 1
   # learning_rate: 0.01
-  main_log_dir: logs
-  max_epoch: 100
+  main_log_dir: project/logs
+  max_epoch: 300
   save_ckpt_freq: 5
-  scheduler_gamma: 0.9886 # 0.99
+  scheduler_gamma: 0.9886
   test_batch_size: 1
-  train_sum_dir: train_log
+  train_sum_dir: project/train_log
   val_batch_size: 1
   summary:
     record_for: []
