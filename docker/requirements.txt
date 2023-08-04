@@ -5,7 +5,7 @@ torchvision==0.14.1+cu116
 tensorboard
 scikit-learn==1.2.1
 open3d==0.17.0
-git+https://github.com/cavelab-ugent/pcl-segmentation
+# git+https://github.com/cavelab-ugent/pcl-segmentation
 # git+https://github.com/woutervdbroeck/Open3D-ML#egg=ml3d
 
 # jupyterlab==3.4.3

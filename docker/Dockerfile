@@ -19,10 +19,13 @@ COPY ./requirements.txt .
 RUN python -m pip install --upgrade pip wheel setuptools\
     && pip install ez_setup \
     && pip install -r requirements.txt --no-cache-dir \
-    # somehow doesn't work if open3d git fork is put in requirements file
-    && git clone https://github.com/woutervdbroeck/Open3D-ML.git \ 
-    && pip install -e ./Open3D-ML \
     && rm -r /root/.cache
 
+# Install development packages
+RUN git clone https://github.com/woutervdbroeck/Open3D-ML \ 
+    && pip install -e ./Open3D-ML 
+
+RUN pip install git+https://github.com/cavelab-ugent/pcl-segmentation
+    
 # Run shell commands
 # CMD ["jupyter-lab", "--ip", "0.0.0.0", "--allow-root"]
