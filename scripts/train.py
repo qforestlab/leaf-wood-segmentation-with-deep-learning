@@ -21,41 +21,15 @@ import ml3d as _ml3d
 import ml3d.torch as ml3d
 from open3d.ml.torch.datasets import Custom3D
 from open3d.ml.torch.modules import losses
-
+from pclbox.models import CustomRandLANet, CustomPointTransformer
 import argparse
+
 
 def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("cfg", help='path to configuration file')
     args = parser.parse_args()
     return args
-
-
-class CustomRandLANet(ml3d.models.RandLANet):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        num_per_class = self.cfg.get('class_weights', None)
-        self.class_weights = self.get_class_weights(num_per_class) if num_per_class is not None else None
-        self.cce_loss = nn.CrossEntropyLoss(weight=self.class_weights)
-
-    def get_class_weights(self, num_per_class):
-        num_per_class = np.array(num_per_class, dtype=np.float32)
-        weight = num_per_class / float(sum(num_per_class))
-        ce_label_weight = 1 / (weight + 0.02)
-        return torch.tensor(ce_label_weight)
-    
-    def get_loss(self, Loss, results, inputs, device):
-        labels = inputs['data']['labels']
-        scores, labels = losses.filter_valid_label(
-            results, 
-            labels, 
-            self.cfg.num_classes,
-            self.cfg.ignored_label_inds,
-            device,
-        )
-        loss = self.cce_loss(scores, labels)
-        return loss, labels, scores
 
 
 if __name__ == '__main__':
@@ -65,10 +39,16 @@ if __name__ == '__main__':
     cfg_path = args.cfg
     cfg = _ml3d.utils.Config.load_from_file(cfg_path)
 
-    # Instantiate dataset, model and pipeline
+    # Define dataset
     dataset = Custom3D(**cfg.dataset)
-    model = CustomRandLANet(**cfg.model) # ml3d.models.RandLANet(**cfg.model)
-    # model = ml3d.models.PointTransformer(**cfg.model)
+
+    # Define model
+    if cfg.model.name == 'RandLANet':
+        model = CustomRandLANet(**cfg.model) # ml3d.models.RandLANet(**cfg.model)
+    elif cfg.model.name == 'PointTransformer':
+        model = CustomPointTransformer(**cfg.model)
+
+    # Define pipeline
     pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset, **cfg.pipeline)
 
     # Train model
