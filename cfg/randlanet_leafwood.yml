@@ -8,7 +8,7 @@ dataset:
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 65536
-  test_result_folder: ./test
+  test_result_folder: ./test_pred_randlanet
   use_cache: true
   # val_files:
   # - bildstein_station1_xyz_intensity_rgb
@@ -50,6 +50,7 @@ model:
 pipeline:
   name: SemanticSegmentation
   device: 'cuda:0'
+  split: train
   optimizer:
     lr: 0.001
   batch_size: 1
@@ -58,9 +59,8 @@ pipeline:
   save_ckpt_freq: 5
   scheduler_gamma: 0.9886
   test_batch_size: 1
-  split: train
   train_sum_dir: train_log
-  val_batch_size: 2
+  val_batch_size: 1
   summary:
     record_for: []
     max_pts:

@@ -4,17 +4,18 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
+  # file_name: oc_016_pc.npy # Single file for prediction
+  test_result_folder: ./test_pred_pointTransformer
   cache_dir: ./logs/cache_pointTransformer
+  use_cache: true
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   # num_points: 40960
   # test_area_idx: 5
-  test_result_folder: ./test
-  use_cache: true
 model:
   name: PointTransformer
   batcher: ConcatBatcher
-  ckpt_path: # path/to/your/checkpoint
+  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_00300.pth # path/to/your/checkpoint
   is_resume: False
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
@@ -23,8 +24,8 @@ model:
   max_voxels:  50000 # 65536
   ignored_label_inds: []
   augment:
-    # recenter:
-    #   dim: [0, 1, 2]
+    recenter:
+      dim: [0, 1, 2]
     rotate:
       method: vertical
     scale:
@@ -53,7 +54,8 @@ pipeline:
   # learning_rate: 0.01
   main_log_dir: logs
   max_epoch: 100
-  save_ckpt_freq: 5
+  # save_ckpt_freq: 5
+  save_ckpt_best: True
   scheduler_gamma: 0.9886 # 0.99
   test_batch_size: 1
   train_sum_dir: train_log
