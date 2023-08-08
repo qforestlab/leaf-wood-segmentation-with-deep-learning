@@ -4,13 +4,14 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
+  # file_name: oc_016_pc.npy
+  test_result_folder: ./test_pred_pointTransformer
+  use_cache: true
   cache_dir: ./logs/cache_pointTransformer
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   # num_points: 40960
   # test_area_idx: 5
-  test_result_folder: ./test
-  use_cache: true
 model:
   name: PointTransformer
   batcher: ConcatBatcher
@@ -20,11 +21,11 @@ model:
   blocks: [2, 3, 4, 6, 3]
   num_classes: 2
   voxel_size: 0.02 # called grid_size in randlanet config
-  max_voxels: 50000 # called num_points in randlanet config
+  max_voxels: 65536 # called num_points in randlanet config
   ignored_label_inds: []
   augment:
-    # recenter:
-    #   dim: [0, 1, 2]
+    recenter:
+      dim: [0, 1, 2]
     rotate:
       method: vertical
     scale:
@@ -49,15 +50,16 @@ pipeline:
     lr: 0.001 # 0.02
     # momentum: 0.9
     # weight_decay: 0.0001
-  batch_size: 1
+  batch_size: 3
   # learning_rate: 0.01
   main_log_dir: /project/logs
   max_epoch: 300
-  save_ckpt_freq: 5
+  save_ckpt_freq: None
+  save_ckpt_best: True
   scheduler_gamma: 0.9886
   test_batch_size: 1
   train_sum_dir: /project/train_log
-  val_batch_size: 1
+  val_batch_size: 3
   summary:
     record_for: []
     max_pts:
