@@ -22,10 +22,10 @@ RUN python -m pip install --upgrade pip wheel setuptools\
     && rm -r /root/.cache
 
 # Install development packages
-RUN git clone https://github.com/woutervdbroeck/Open3D-ML \ 
-    && pip install -e ./Open3D-ML 
+# RUN git clone https://github.com/woutervdbroeck/Open3D-ML \ 
+#     && pip install -e ./Open3D-ML 
 
-RUN pip install git+https://github.com/cavelab-ugent/pcl-segmentation
+# RUN pip install git+https://github.com/cavelab-ugent/pcl-segmentation
     
 # Run shell commands
 # CMD ["jupyter-lab", "--ip", "0.0.0.0", "--allow-root"]
