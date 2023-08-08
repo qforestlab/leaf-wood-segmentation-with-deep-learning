@@ -15,7 +15,7 @@ dataset:
 model:
   name: PointTransformer
   batcher: ConcatBatcher
-  ckpt_path: # path/to/your/checkpoint
+  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_00300.pth # path/to/your/checkpoint
   is_resume: False
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
