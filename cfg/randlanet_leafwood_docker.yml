@@ -4,11 +4,11 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
-  cache_dir: /project/logs/cache
+  cache_dir: /project/logs/cache_RandLANet
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 65536
-  # test_result_folder: ./test
+  test_result_folder: ./test_pred_RandLANet
   use_cache: true
   # val_files:
   # - bildstein_station1_xyz_intensity_rgb
@@ -50,12 +50,14 @@ model:
 pipeline:
   name: SemanticSegmentation
   device: 'cuda:0'
+  num_workers: 4
   optimizer:
     lr: 0.001
   batch_size: 3
   main_log_dir: /project/logs
   max_epoch: 300
-  save_ckpt_freq: 5
+  # save_ckpt_freq: 
+  save_ckpt_best: True
   scheduler_gamma: 0.9886
   test_batch_size: 1
   split: train

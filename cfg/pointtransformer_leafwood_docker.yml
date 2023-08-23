@@ -46,6 +46,7 @@ model:
 pipeline:
   name: SemanticSegmentation
   device: 'cuda:0'
+  num_workers: 4
   optimizer:
     lr: 0.001 # 0.02
     # momentum: 0.9
@@ -54,7 +55,7 @@ pipeline:
   # learning_rate: 0.01
   main_log_dir: /project/logs
   max_epoch: 300
-  save_ckpt_freq: None
+  # save_ckpt_freq: None
   save_ckpt_best: True
   scheduler_gamma: 0.9886
   test_batch_size: 1
