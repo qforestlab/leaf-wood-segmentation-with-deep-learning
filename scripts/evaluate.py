@@ -45,8 +45,9 @@ if __name__ == '__main__':
     # Get data path and test folder from config file
     data_path = cfg.dataset.get('dataset_path')
     test_dir = cfg.dataset.get('test_dir')
+    test_pred_dir = cfg.dataset.get('test_result_folder', 'test_pred')
     path_true = os.path.join(data_path, test_dir)
-    path_pred = os.path.join(data_path, 'prediction')
+    path_pred = os.path.join(data_path, test_pred_dir)
 
     pred_filenames = os.listdir(path_pred)
     true_filenames = [filename[:-4] + '_labels.txt' for filename in pred_filenames]
