@@ -8,7 +8,7 @@ dataset:
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 65536
-  test_result_folder: ./test_pred_RandLANet
+  test_result_folder: ./test_pred_RandLANet_isprs
   use_cache: true
   # val_files:
   # - bildstein_station1_xyz_intensity_rgb
@@ -19,7 +19,7 @@ model:
   name: RandLANet
   batcher: DefaultBatcher
   # device: 'cpu'
-  # ckpt_path: logs/CustomRandLANet_TropicalLeafWood_torch/checkpoint/ckpt_00100.pth # continue from this checkpoint (=saved weights)
+  ckpt_path: logs/CustomRandLANet_TropicalLeafWood_torch/checkpoint/ckpt_best_randlanet.pth # continue from this checkpoint (=saved weights)
   # is_resume: True
   num_neighbors: 16
   num_layers: 5

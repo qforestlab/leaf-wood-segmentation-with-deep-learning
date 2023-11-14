@@ -5,7 +5,7 @@ dataset:
   val_dir: val
   test_dir: test
   # file_name: oc_016_pc.npy
-  test_result_folder: ./test_pred_pointTransformer
+  test_result_folder: ./test_pred_pointTransformer_isprs
   use_cache: true
   cache_dir: ./logs/cache_pointTransformer
   class_weights: [34512040, 9127323]
@@ -15,8 +15,8 @@ dataset:
 model:
   name: PointTransformer
   batcher: ConcatBatcher
-  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_00300.pth # path/to/your/checkpoint
-  is_resume: False
+  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_best_pointtransformer.pth 
+  # is_resume: False
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
   num_classes: 2
