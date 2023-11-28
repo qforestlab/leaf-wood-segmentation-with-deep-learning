@@ -29,11 +29,11 @@ import open3d as o3d
 import ml3d as _ml3d
 import ml3d.torch as ml3d
 from open3d.ml.torch.datasets import Custom3D
-from pclbox.models import CustomRandLANet, CustomPointTransformer
+from pclbox.models import CustomRandLANet, CustomPointTransformer, CustomKPConv
 import argparse
 
 
-FILE_TYPE = ['txt']
+FILE_TYPE = ['npy']
 
 
 def get_arguments():
@@ -76,7 +76,6 @@ if __name__ == '__main__':
     test_dir = cfg.dataset.get('test_dir')
     test_pred_dir = cfg.dataset.get('test_result_folder', 'test_pred')
 
-
     # Make prediction directory if it doesn't exist
     if not os.path.exists(os.path.join(data_path, test_pred_dir)):
         os.mkdir(os.path.join(data_path, test_pred_dir))
@@ -86,6 +85,8 @@ if __name__ == '__main__':
         model = CustomRandLANet(**cfg.model) 
     elif cfg.model.name == 'PointTransformer':
         model = CustomPointTransformer(**cfg.model)
+    elif cfg.model.name == 'KPConv':
+        model = CustomKPConv(**cfg.model)
     
     # Define pipeline
     pipeline = ml3d.pipelines.SemanticSegmentation(model, **cfg.pipeline)
