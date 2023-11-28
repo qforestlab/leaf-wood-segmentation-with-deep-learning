@@ -25,10 +25,11 @@ import torch
 import torch.nn as nn
 # import open3d.ml as _ml3d
 # import open3d.ml.torch as ml3d
+import open3d as o3d
 import ml3d as _ml3d
 import ml3d.torch as ml3d
 from open3d.ml.torch.datasets import Custom3D
-from pclbox.models import CustomRandLANet, CustomPointTransformer
+from pclbox.models import CustomRandLANet, CustomPointTransformer, CustomKPConv
 import argparse
 
 
@@ -49,8 +50,11 @@ def read_cloud(path):
         pcl = np.load(path)
     elif path[-3:] == 'txt':
         pcl = np.loadtxt(path)
+    elif path[-3:] == 'ply':
+        pcl = o3d.t.io.read_point_cloud(path)
+        pcl = pcl.point.positions.numpy()
     else:
-        raise ValueError('input file should be txt or npy')
+        raise ValueError('input file should be txt, ply or npy')
     
     data = {
         'point': pcl[:, :3],
@@ -72,7 +76,6 @@ if __name__ == '__main__':
     test_dir = cfg.dataset.get('test_dir')
     test_pred_dir = cfg.dataset.get('test_result_folder', 'test_pred')
 
-
     # Make prediction directory if it doesn't exist
     if not os.path.exists(os.path.join(data_path, test_pred_dir)):
         os.mkdir(os.path.join(data_path, test_pred_dir))
@@ -82,6 +85,8 @@ if __name__ == '__main__':
         model = CustomRandLANet(**cfg.model) 
     elif cfg.model.name == 'PointTransformer':
         model = CustomPointTransformer(**cfg.model)
+    elif cfg.model.name == 'KPConv':
+        model = CustomKPConv(**cfg.model)
     
     # Define pipeline
     pipeline = ml3d.pipelines.SemanticSegmentation(model, **cfg.pipeline)
@@ -119,6 +124,7 @@ if __name__ == '__main__':
         
         # Save input point cloud with prediction as txt file in 'prediction' folder
         pcl_pred = np.hstack((data['point'], pred['predict_labels'].reshape(-1, 1)))
+        # pcl_pred = np.hstack((data['point'], pred['predict_scores'][:, 1].reshape(-1, 1)))
         
         path_out = os.path.join(data_path, test_pred_dir, filename[:-3] + 'txt')
         np.savetxt(path_out, pcl_pred, fmt='%.3f')

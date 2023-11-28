@@ -1,64 +1,60 @@
 # pcl-segmentation
 
-tested with
-- WSL2 Ubuntu 22.04
-- python 3.10.9
+## Setup repo with conda environment
 
-requirements:
-- open3d (python) with cuda 
-
-
-Installation for running models with torch-points3d
-- install docker
-- pull image from [here](https://hub.docker.com/r/principialabs/torch-points3d/tags)
-- set up nvidia container toolkit to be able to use gpus with container [see here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
-
-how to install wsl2
-- install nvidia driver on windows
-- install wsl2
-- install cuda toolkit for wsl2
-
-
-conda create -n points3d -c conda-forge python=3.8 pytorch torchvision torchaudio pytorch-cuda=11.8 torchsparse -c pytorch -c nvidia 
-pip install torch-points3d
-dont't install cuda toolkit for wsl2
---> works but only partly 
-
-
-Instructions for pytorch-points3d:
-
-wget https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_455.32.00_linux.run
-sudo sh cuda_11.1.1_455.32.00_linux.run --toolkit --silent --override
-
-export CUDA_HOME=/usr/local/cuda-11.1
-
-conda install openblas-devel -c anaconda
-conda install python=3.8 pytorch torchvision cudatoolkit=11.1 torchsparse torch-points-kernels -c pytorch -c nvidia -c conda-forge -c torch-points3d
-pip install -U git+https://github.com/NVIDIA/MinkowskiEngine -v --no-deps --install-option="--blas_include_dirs=${CONDA_PREFIX}/include" --install-option="--blas=openblas"
-
-
-Instructions for open3d-ml:
-
-conda create -n open3dml
-conda activate open3dml
-pip install --upgrade pip
-pip install -r requirements-open3d.txt
-pip install open3d
-
-sudo apt install nvidia-cudnn
-export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
-
-## Use this repo
-
-git clone git+https://github.com/cavelab-ugent/pcl-segmentation@main
+1. install anaconda/miniconda and make a new environment:
+```
+conda create -n leafwood python==3.8
+conda activate leafwood
+```
+2. install required packages:
+```
+conda install pytorch==1.13.1 torchvision==0.14.1 pytorch-cuda=11.6 -c pytorch -c nvidia
+pip install open3d==0.17.0 scikit-learn==1.2.1 tensorboard
+```
+3. Install fork of open3D-ml
+```
+mkdir ~/repo
+cd ~/repo
+git clone https://github.com/woutervdbroeck/Open3D-ML
 pip install -e .
+```
+4. Install this package
+```
+mkdir ~/project
+cd ~/project
+git clone git+https://github.com/cavelab-ugent/pcl-segmentation@main
+cd pcl-segmentation
+pip install -e .
+```
 
-## Docker image
+## Setup repo with Docker 
 
 1. make sure you have the latest version of wsl (in windows command prompt: wsl --update)
 2. make sure you have the latest correct windows nvidia driver 
 3. install docker with docker compose inside WSL
-4. install nvidia toolkit for docker inside WSL (to allow gpu usage in docker container)
-
-cd docker
+4. install nvidia toolkit for docker inside WSL (to allow gpu usage in docker container) [see here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+5. check your data path in the docker-compose.yml file (under -volumes)
+5. start docker image:
+```
+cd ~/project/pcl-segmentation/docker
 bash docker.sh
+```
+
+## Using this repo
+
+Everything should be specified in a a yammel config file in the cfg directory.
+
+Example structure of files:
+
+dataset_path
+  |- train_dir
+  |- val_dir
+  |- test_dir: in case of inference files should be placed inside this folder
+      |- file_name.npy
+  |- test_result_folder: predictions will be saved in this folder
+
+run training: ```python scripts/train.py cfg/name_of_config_file.yml```
+
+run inference on new data: ```python scripts/infer.py cfg/name_of_config_file.yml```
+

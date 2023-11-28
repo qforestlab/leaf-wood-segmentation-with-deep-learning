@@ -4,11 +4,11 @@ dataset:
   train_dir: train
   val_dir: val
   test_dir: test
-  cache_dir: ./logs/cache_small3d/
+  cache_dir: logs/cache_RandLANet
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
   num_points: 65536
-  test_result_folder: ./test_pred_randlanet
+  test_result_folder: ./test_pred_randlanet_isprs
   use_cache: true
   # val_files:
   # - bildstein_station1_xyz_intensity_rgb
@@ -19,7 +19,7 @@ model:
   name: RandLANet
   batcher: DefaultBatcher
   # device: 'cpu'
-  # ckpt_path: logs/CustomRandLANet_TropicalLeafWood_torch/checkpoint/ckpt_00100.pth # continue from this checkpoint (=saved weights)
+  ckpt_path: logs/CustomRandLANet_TropicalLeafWood_torch/checkpoint/ckpt_best_randlanet.pth # continue from this checkpoint (=saved weights)
   # is_resume: True
   num_neighbors: 16
   num_layers: 5
@@ -50,10 +50,11 @@ model:
 pipeline:
   name: SemanticSegmentation
   device: 'cuda:0'
+  num_workers: 4
   split: train
   optimizer:
     lr: 0.001
-  batch_size: 1
+  batch_size: 3
   main_log_dir: ./logs
   max_epoch: 100
   save_ckpt_freq: 5
