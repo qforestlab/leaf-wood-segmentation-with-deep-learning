@@ -47,12 +47,12 @@ Everything should be specified in a a yammel config file in the cfg directory.
 
 Example structure of files:
 
-dataset_path
-  |- train_dir
-  |- val_dir
-  |- test_dir: in case of inference files should be placed inside this folder
-      |- file_name.npy
-  |- test_result_folder: predictions will be saved in this folder
+dataset_path \
+  |- train_dir \ 
+  |- val_dir \
+  |- test_dir: in case of inference files should be placed inside this folder \
+      |- file_name.npy \
+  |- test_result_folder: predictions will be saved in this folder \
 
 run training: ```python scripts/train.py cfg/name_of_config_file.yml```
 
