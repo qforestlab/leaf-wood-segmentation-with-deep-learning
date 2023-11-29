@@ -1,11 +1,11 @@
 dataset:
   name: TropicalLeafWood
-  dataset_path: /project/data
+  dataset_path: /project/data/leafon_individual_TLSdata
   train_dir: train
   val_dir: val
   test_dir: test
   # file_name: oc_016_pc.npy
-  test_result_folder: ./test_pred_pointTransformer_isprs
+  test_result_folder: test_pred
   use_cache: true
   cache_dir: ./logs/cache_pointTransformer
   class_weights: [34512040, 9127323]
@@ -15,8 +15,8 @@ dataset:
 model:
   name: PointTransformer
   batcher: ConcatBatcher
-  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_best_pointtransformer.pth 
-  # is_resume: False
+  ckpt_path: logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint_2023-08-23_18:35:04/ckpt_best.pth # path/to/your/checkpoint
+  is_resume: False
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
   num_classes: 2
@@ -46,12 +46,12 @@ model:
 pipeline:
   name: SemanticSegmentation
   device: 'cuda:0'
-  num_workers: 4
+  num_workers: 16
   optimizer:
     lr: 0.001 # 0.02
     # momentum: 0.9
     # weight_decay: 0.0001
-  batch_size: 3
+  batch_size: 12
   # learning_rate: 0.01
   main_log_dir: /project/logs
   max_epoch: 300
