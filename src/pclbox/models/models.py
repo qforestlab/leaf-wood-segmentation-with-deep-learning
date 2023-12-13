@@ -40,7 +40,7 @@ class CustomPointTransformer(ml3d.models.PointTransformer):
         super().__init__(*args, **kwargs)
         num_per_class = self.cfg.get('class_weights', None)
         self.class_weights = self.get_class_weights(num_per_class) if num_per_class is not None else None
-        self.cce_loss = nn.CrossEntropyLoss(weight=self.class_weights)
+        self.cce_loss = nn.CrossEntropyLoss(weight=self.class_weights, reduction='none')
 
     def get_class_weights(self, num_per_class):
         num_per_class = np.array(num_per_class, dtype=np.float32)
@@ -50,6 +50,7 @@ class CustomPointTransformer(ml3d.models.PointTransformer):
     
     def get_loss(self, Loss, results, inputs, device):
         labels = inputs['data'].label
+
         scores, labels = losses.filter_valid_label(
             results, 
             labels, 
@@ -57,7 +58,7 @@ class CustomPointTransformer(ml3d.models.PointTransformer):
             self.cfg.ignored_label_inds,
             device,
         )
-        loss = self.cce_loss(scores, labels)
+        loss = self.cce_loss(scores, labels).mean()
         return loss, labels, scores
 
 
