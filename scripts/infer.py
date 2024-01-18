@@ -32,8 +32,8 @@ from open3d.ml.torch.datasets import Custom3D
 from pclbox.models import CustomRandLANet, CustomPointTransformer, CustomKPConv
 import argparse
 
-
-FILE_TYPE = ['npy']
+# Supported file types
+FILE_TYPE = ['npy', 'txt', 'ply']
 
 
 def get_arguments():
