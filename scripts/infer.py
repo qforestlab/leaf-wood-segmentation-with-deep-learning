@@ -32,6 +32,9 @@ from open3d.ml.torch.datasets import Custom3D
 from pclbox.models import CustomRandLANet, CustomPointTransformer, CustomKPConv
 import argparse
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 # Supported file types
 FILE_TYPE = ['npy', 'txt', 'ply']
 
@@ -117,12 +120,15 @@ if __name__ == '__main__':
 
     for filename in filenames:
         # Read point cloud
+        print('reading', filename)
         data = read_cloud(os.path.join(data_path, test_dir, filename))
 
         # Run inference
+        print('running inference for ', filename)
         pred = pipeline.run_inference(data)
         
         # Save input point cloud with prediction as txt file in 'prediction' folder
+        print('saving result for ', filename)
         pcl_pred = np.hstack((data['point'], pred['predict_labels'].reshape(-1, 1)))
         # pcl_pred = np.hstack((data['point'], pred['predict_scores'][:, 1].reshape(-1, 1)))
         
