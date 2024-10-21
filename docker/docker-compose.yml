@@ -4,23 +4,15 @@ services:
     image: open3dml
     container_name: open3dml
     working_dir: /project
-    # ports:
-      # - 8050:8050 # jupyterlab
-      # - 6006:6006 # tensorboard
     volumes:
       - ../cfg:/project/cfg
       - ../logs:/project/logs
       - ../scripts:/project/scripts
       - ../train_log:/project/train_log
-      - ../../data/leaf_wood:/project/data
-    # env_file: ./.env
+      - ../data:/project/data # Potentially change '../data' to your own data path
     stdin_open: true 
     tty: true
-    # restart: always
-    # networks: 
-    # command: /bin/bash
-    ipc: host # Necessary when using multiple workers (to increase shared memory)
-    # shm_size: 285340 kB
+    ipc: host 
     deploy:
       resources:
         reservations:

@@ -1,4 +1,3 @@
-# FROM  nvcr.io/nvidia/pytorch:23.04-py3
 
 FROM python:3.8-slim-buster
 
@@ -21,11 +20,3 @@ RUN python -m pip install --upgrade pip wheel setuptools\
     && pip install -r requirements.txt --no-cache-dir \
     && rm -r /root/.cache
 
-# Install development packages
-# RUN git clone https://github.com/woutervdbroeck/Open3D-ML \ 
-#     && pip install -e ./Open3D-ML 
-
-# RUN pip install git+https://github.com/cavelab-ugent/pcl-segmentation
-    
-# Run shell commands
-# CMD ["jupyter-lab", "--ip", "0.0.0.0", "--allow-root"]
