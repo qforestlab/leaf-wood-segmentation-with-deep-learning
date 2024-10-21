@@ -9,38 +9,10 @@ dataset:
   use_cache: true
   class_weights: [34512040, 9127323]
   ignored_label_inds: []
-  # steps_per_epoch_train: 40
-  # steps_per_epoch_valid: 10
-  # sampler:
-  #   name: SemSegSpatiallyRegularSampler
 model:
   name: KPConv
   ckpt_path: ./logs/CustomKPConv_TropicalLeafWood_torch/checkpoint_2023-11-27_22:21:17/ckpt_best.pth 
   is_resume: false
-  # KP_extent: 1.0
-  # KP_influence: linear
-  # aggregation_mode: sum
-  # architecture: [
-  # 'simple',
-  # 'resnetb',
-  # 'resnetb_strided',
-  # 'resnetb',
-  # 'resnetb_strided',
-  # 'resnetb_deformable',
-  # 'resnetb_deformable_strided',
-  # 'resnetb_deformable',
-  # 'resnetb_deformable_strided',
-  # 'resnetb_deformable',
-  # 'nearest_upsample',
-  # 'unary',
-  # 'nearest_upsample',
-  # 'unary',
-  # 'nearest_upsample',
-  # 'unary',
-  # 'nearest_upsample',
-  # 'unary']
-  # reduce_fc: true
-  # augment_color: 0.8
   augment_noise: 0.00 # 0.001
   augment_rotation: #vertical
   augment_scale_anisotropic: true
@@ -60,32 +32,14 @@ model:
       max_s: 1.1 # 1.05
     noise:
       noise_std: 0.001
-  # batch_limit: 20000
-  # grad_clip_norm: 100.0
-  # batch_norm_momentum: 0.98
   batcher: ConcatBatcher
-  # conv_radius: 2.5
-  # deform_fitting_mode: point2point
-  # deform_fitting_power: 1.0
-  # deform_radius: 6.0
-  # density_parameter: 5.0
-  # first_features_dim: 128
   first_subsampling_dl: 0.02
-  # fixed_kernel_points: center
   ignored_label_inds: []
   in_features_dim: 3
   in_points_dim: 3
-  # l_relu: 0.2
-  # in_radius: 4.0
   lbl_values: [0, 1]
   min_in_points: 10000 # 65536
-  # max_in_points: 65536
-  # modulated: false
   num_classes: 2
-  # num_kernel_points: 15
-  # num_layers: 5
-  # repulse_extent: 1.2
-  # use_batch_norm: true
 pipeline:
   name: SemanticSegmentation
   # device: 'cuda:0'
@@ -94,20 +48,14 @@ pipeline:
   optimizer:
     lr: 0.001
   scheduler_gamma: 0.9886
-  # adam_lr: 0.01
-  # momentum: 0.98
   batch_size: 1
   test_batch_size: 1
   val_batch_size: 1
-  # learning_rate: 0.01
-  # lr_decays: 0.98477
-  # deform_lr_factor: 0.1
   max_epoch: 100
   save_ckpt_freq:  
   save_ckpt_best: True
   main_log_dir: ./logs
   train_sum_dir: train_log
-  # weight_decay: 0.001
   summary:
     record_for: []
     max_pts:
