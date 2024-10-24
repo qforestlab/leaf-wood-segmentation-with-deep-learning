@@ -4,7 +4,7 @@
 
 [**Requirements**](#requirements) \| [**Structure**](#repository-structure) \| [**Data**](#data) \| [**Installation**](#installation) \| [**Inference**](#using-a-trained-model-for-segmenting-new-data) \| [**Training**](#training-a-model) \| [**Cite**](#cite)
 
-Repository with the code for the paper "[Pointwise Deep Learning for Leaf-Wood Segmentation of Tropical Tree Point Clouds from Terrestrial Laser Scanning]()"
+Repository with the code for the paper "[Pointwise Deep Learning for Leaf-Wood Segmentation of Tropical Tree Point Clouds from Terrestrial Laser Scanning]()", which is currently under review. **Data and trained model weights will be made publically available upon acceptance.** More documentation will be added soon.
 
 <!-- ![dataset examples](./schematic_pipeline.png) -->
 
@@ -234,7 +234,7 @@ tensorboard --logdir=train_log
 
 ## TODO
 
-- check train and inference script
+- clean up train and inference script
 - clean up config files
 - describe different fields in config file in this readme
-- run test inference and training (with all data ?)
+<!-- - run test inference and training (with all data ?) -->
