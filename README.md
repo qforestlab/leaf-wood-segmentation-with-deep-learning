@@ -166,7 +166,7 @@ Specify everything in the config file. Minimum requirements are the following:
 
 > ```ckpt_path```: 
 >
-> You can download model weights [here](https://doi.org/10.5281/zenodo.13767795).
+> You can download model weights [here](https://zenodo.org/records/13767795).
 
 > ```is_resume```: 
 
