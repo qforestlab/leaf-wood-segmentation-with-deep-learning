@@ -4,9 +4,9 @@
 
 [**Requirements**](#requirements) \| [**Structure**](#repository-structure) \| [**Data**](#data) \| [**Installation**](#installation) \| [**Inference**](#using-a-trained-model-for-segmenting-new-data) \| [**Training**](#training-a-model) \| [**Cite**](#cite)
 
-Repository with the code for the paper "[Pointwise Deep Learning for Leaf-Wood Segmentation of Tropical Tree Point Clouds from Terrestrial Laser Scanning]()", which is currently under review. **Data and trained model weights will be made publically available upon acceptance.** More documentation will be added soon.
+Repository with the code for the paper "[Pointwise Deep Learning for Leaf-Wood Segmentation of Tropical Tree Point Clouds from Terrestrial Laser Scanning](https://doi.org/10.1016/j.isprsjprs.2025.06.023)". More documentation will be added soon.
 
-<!-- ![dataset examples](./schematic_pipeline.png) -->
+![dataset examples](./schematic_pipeline.png)
 
 ## Requirements
 
@@ -36,7 +36,7 @@ The repo is organized as follows:
 
 ## Data
 
-<!-- ![dataset examples](./dataset_examples.png) -->
+![dataset examples](./dataset_examples.png)
 
 The dataset used in the paper can be found [here](https://doi.org/10.5281/zenodo.13759407)
 
@@ -58,11 +58,11 @@ The data is organized as follows:
 The expected point cloud format is three columns with the local x, y, z coordinates respectively, and a fourth column with the label (0 = leaf, 1 = wood).
 
 ```
-67.511 78.495 -10.344 1.000
-67.482 78.482 -10.326 1.000
-67.500 78.525 -10.309 1.000
-67.645 78.406 -10.344 0.000
-67.643 78.409 -10.322 0.000
+67.511 78.495 -10.344 1
+67.482 78.482 -10.326 1
+67.500 78.525 -10.309 1
+67.645 78.406 -10.344 0
+67.643 78.409 -10.322 0
 ...
 ```
 
@@ -106,9 +106,9 @@ pip install -e .
 
 #### For Windows
 
-For Windows we recommend using WSL. Docker on Windows does not support using a GPU.
+For Windows we recommend using Windows Subsystem for Linux (WSL). Docker on Windows does not support using a GPU.
 
- Install WLS and/or make sure you have the latest version (in PowerShell or windows command prompt: ```wsl --install``` or ```wsl --update```).
+ Install WSL and/or make sure you have the latest version (in PowerShell or windows command prompt: ```wsl --install``` or ```wsl --update```).
 
 #### For Linux / in WSL
 1. make sure you have the latest NVIDIA driver. 
@@ -147,7 +147,7 @@ pipeline          # Training/inference pipeline configurations
   ...
 ```
 
-## Using a trained model for segmenting new data 
+## Using a trained model for segmenting your data 
 
 > [!NOTE]
 > Supported file formats for point clouds are `.txt`, `.npy`, and `.ply`. 
@@ -185,7 +185,7 @@ Specify everything in the config file. Minimum requirements are the following:
 
 
 \
-**You can run inference on new data as follows:**
+**You can run inference on your data as follows:**
 ```
 python scripts/infer.py cfg/name_of_config_file.yml
 ```
@@ -222,15 +222,19 @@ tensorboard --logdir=train_log
 ```
 
 ## Cite
-<!-- ```bib
-@article{VandenBroeck2024,
-  title={Pointwise Deep Learning for Leaf-Wood Segmentation of Tropical Tree Point Clouds from Terrestrial Laser Scanning},
-  author={Wouter A. J. Van den Broeck and Louise Terryn and Shilin Chen and Wout Cherlet and Zane T. Cooper and Kim Calders},
-  journal={},
-  year={2024},
-  url = {\url{}}
+```bib
+@article{VandenBroeck2025,
+  title = {Pointwise deep learning for leaf-wood segmentation of tropical tree point clouds from terrestrial laser scanning},
+  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  volume = {227},
+  pages = {366-382},
+  year = {2025},
+  issn = {0924-2716},
+  doi = {https://doi.org/10.1016/j.isprsjprs.2025.06.023},
+  url = {https://www.sciencedirect.com/science/article/pii/S0924271625002497},
+  author = {Wouter A.J. {Van den Broeck} and Louise Terryn and Shilin Chen and Wout Cherlet and Zane T. Cooper and Kim Calders},
 }
-``` -->
+```
 
 ## TODO
 
