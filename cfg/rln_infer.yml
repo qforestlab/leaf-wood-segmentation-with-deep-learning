@@ -1,0 +1,22 @@
+dataset:
+  dataset_path: /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/cax2023 # Parent directory of test_dir and test_result_folder
+  test_dir: PB_23_trees # Directory with you point clouds (npy, txt or ply)
+  test_result_folder: results_tmp # Directory where leaf-wood separated results are stored.
+model:
+  name: RandLANet # Name of network
+  ckpt_path: ./model_weights/weights_randlanet.pth # continue from this checkpoint (=saved weights)
+  num_layers: 5 # Networks architecture param
+  sub_sampling_ratio: [4, 4, 4, 4, 2]  # Networks architecture param
+  dim_output: [16, 64, 128, 256, 512] # Network architecture param
+  num_points: 65536 # 2^16 points around center point are sampled, using furthest dist sampling to step through the whole point cloud
+  in_channels: 3 # Three input channels for the XYZ coordinates
+  dim_features: 3 # Number of features = in_channels --> only XYZ coordinates
+  num_classes: 2 # Number of output classes (leaf + wood)
+  class_weights: [34512040, 9127323] # Not used for inference but argument is required 
+  grid_size: 0.02 # Point cloud downsampling to this voxel resolution prior to network input
+  augment:
+    recenter:
+      dim: [0, 1, 2] # Recenter all 3 dimensions around (0,0,0) for each subsample
+pipeline:
+  device: 'cuda:0' # 'cuda:0' or 'cpu'
+  batch_size: 3 # Higher numbers = bit faster, but depends on your GPU memory. Doesn't affect the output.

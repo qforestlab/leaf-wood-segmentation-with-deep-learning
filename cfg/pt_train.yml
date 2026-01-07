@@ -1,11 +1,11 @@
 dataset:
   name: TropicalLeafWood
-  dataset_path: /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/trees_kim  # ../data/leaf_wood # /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/leafon_individual_TLSdata # 
+  dataset_path: /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/cax2023  # ../data/leaf_wood # /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/leafon_individual_TLSdata # 
   train_dir: train
   val_dir: val
-  test_dir: test
+  test_dir: PB_23_trees
   # file_name: rc_172_pc.npy # Single file for prediction
-  test_result_folder: test_pred
+  test_result_folder: PB_23_trees_leafwood
   cache_dir: ./logs/cache_pointTransformer
   use_cache: true
   class_weights: [34512040, 9127323]
@@ -13,8 +13,8 @@ dataset:
 model:
   name: PointTransformer
   batcher: ConcatBatcher
-  ckpt_path: ./logs/CustomPointTransformer_TropicalLeafWood_torch/checkpoint/ckpt_best_pointtransformer.pth # path/to/your/checkpoint
-  # is_resume: False
+  ckpt_path: ./model_weights/weights_pointtransformer.pth # path/to/your/checkpoint
+  is_resume: True
   in_channels: 3
   blocks: [2, 3, 4, 6, 3]
   num_classes: 2
