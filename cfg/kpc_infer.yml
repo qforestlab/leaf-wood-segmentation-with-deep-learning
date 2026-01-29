@@ -1,34 +1,10 @@
 dataset:
-  # name: TropicalLeafWood
   dataset_path: /mnt/c/Users/wavdnbro/OneDrive - UGent/Documents/spacetwin/datasets/cax2023 # Parent directory of test_dir and test_result_folder
   test_dir: PB_23_trees # Directory with you point clouds (npy, txt or ply)
   test_result_folder: results_tmp # Directory where leaf-wood separated results are stored.
-  # cache_dir: ./logs/cache
-  # use_cache: true
-  # class_weights: [34512040, 9127323]
-  # ignored_label_inds: []
 model:
   name: KPConv # Name of network
   ckpt_path: ./model_weights/weights_kpconv.pth # Continue from this checkpoint (=saved weights)
-  # is_resume: True
-  # augment_noise: 0.00 # 0.001
-  # augment_rotation: #vertical
-  # augment_scale_anisotropic: true
-  # augment_scale_max: 1. # 1.1
-  # augment_scale_min: 1. # 0.9
-  # augment_symmetries:
-  # - false # true
-  # - false
-  # - false
-  
-    # rotate:
-      # method: vertical
-    # scale:
-      # min_s: 0.9 # 0.95
-      # max_s: 1.1 # 1.05
-    # noise:
-      # noise_std: 0.001
-  # batcher: ConcatBatcher
   first_subsampling_dl: 0.02 # Point cloud downsampling to this voxel resolution prior to network input
   min_in_points: 10000 # Number of points around a center point sampled, using furthest dist sampling to step through the whole point cloud
   in_points_dim: 3 # Three input channels for the XYZ coordinates
@@ -40,23 +16,5 @@ model:
     recenter:
       dim: [0, 1, 2] # Recenter all 3 dimensions around (0,0,0) for each subsample
 pipeline:
-  # name: SemanticSegmentation
   device: 'cuda:0' # 'cuda:0' or 'cpu'
-  # num_workers: 0
-  # pin_memory: false
-  # optimizer:
-  #   lr: 0.001
-  # scheduler_gamma: 0.9886
   batch_size: 3
-  # test_batch_size: 1
-  # val_batch_size: 1
-  # max_epoch: 100
-  # save_ckpt_freq:  
-  # save_ckpt_best: True
-  # main_log_dir: ./logs
-  # train_sum_dir: train_log
-  # summary:
-  #   record_for: []
-  #   max_pts:
-  #   use_reference: false
-  #   max_outputs: 1
